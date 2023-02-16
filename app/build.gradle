@@ -8,7 +8,10 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "dev.jeran.electric.eel.bug"
+        def appProperties = new Properties()
+        file("../app.properties").withInputStream { appProperties.load(it) }
+
+        applicationId appProperties.getProperty("applicationId")
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -18,6 +21,7 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        manifestPlaceholders = [appName:appProperties.getProperty("appName")]
     }
 
     buildTypes {
